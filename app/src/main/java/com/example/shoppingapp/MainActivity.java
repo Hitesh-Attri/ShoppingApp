@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         MyDBHelper myDBHelper = new MyDBHelper(this);
 
@@ -32,39 +34,75 @@ public class MainActivity extends AppCompatActivity {
         passwordView = findViewById(R.id.editTextTextPassword);
         passwordConfView = findViewById(R.id.editTextTextPassword2);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        Button registerbtn = findViewById(R.id.button3);
-        registerbtn.setOnClickListener(new View.OnClickListener() {
+//        regbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//                // extracting text from input fields
+//
+//                if(validateEmail(emailView)){
+//                    email = emailView.getText().toString();
+//                    username = usernameView.getText().toString();
+//                    password = passwordView.getText().toString();
+//                    passwordConf = passwordConfView.getText().toString();
+//
+//                    if(isSamePass(password,passwordConf)){
+//                        Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_SHORT).show();
+//
+//                        // inserting data
+//                        myDBHelper.addCreds(username, email, password);
+//
+//                        // text clear
+//                        clearAll();
+//                    }else{
+//                        clearPassFields();
+//                    }
+//                }else{
+//                    emailView.getText().clear();
+//                }
+//            }
+//        });
+
+        regbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Register Button clicked!", Toast.LENGTH_SHORT).show();
 
                 // extracting text from input fields
+                email = emailView.getText().toString();
+                username = usernameView.getText().toString();
+                password = passwordView.getText().toString();
+                passwordConf = passwordConfView.getText().toString();
 
-                if(validateEmail(emailView)){
-                    email = emailView.getText().toString();
-                    username = usernameView.getText().toString();
-                    password = passwordView.getText().toString();
-                    passwordConf = passwordConfView.getText().toString();
+                if(email.equals("") || username.equals("") || password.equals("") || passwordConf.equals("")){
+                    Toast.makeText(MainActivity.this, "Enter all fields!", Toast.LENGTH_SHORT).show();
+                }
 
-                    if(isSamePass(password,passwordConf)){
-                        Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_SHORT).show();
-
-                        // inserting data
-                        myDBHelper.addCreds(username, email, password);
-
-                        // text clear
-                        clearAll();
-//                  clearPassFields();
-                    }else{
+                if (validateEmail(emailView)) {
+                    if (isSamePass(password, passwordConf) ) {
+                        Boolean checkuser = myDBHelper.checkUsername(username);
+                        if(checkuser == false){
+                            // inserting data
+                            boolean insert = myDBHelper.addCreds(username, email, password);
+                            if(insert == true) {
+                                // text clear
+                                clearAll();
+                                Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, login.class);
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(MainActivity.this, "Registration failed.", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            clearAll();
+                            Toast.makeText(MainActivity.this, "User aleady exists!", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
                         clearPassFields();
                     }
-
 //                  Log.d("helpp", username);
-
-                }else{
+                } else {
                     emailView.getText().clear();
                 }
             }
@@ -78,7 +116,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //        myDBHelper.addCreds("Bunty0", "buntyy0@gmail.com","00000");
+
+
+        myDBHelper.addCreds("Bunty0", "buntyy0@gmail.com","00000");
     }
 
     private void clearAll(){
@@ -87,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         passwordView.getText().clear();
         passwordConfView.getText().clear();
     }
+
     private void clearPassFields(){
         passwordView.getText().clear();
         passwordConfView.getText().clear();
@@ -103,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
+
     private boolean isSamePass(String pass, String passCnf){
         if(pass.isEmpty() || passCnf.isEmpty()){
             Toast.makeText(this, "Field cant be empty", Toast.LENGTH_SHORT).show();
