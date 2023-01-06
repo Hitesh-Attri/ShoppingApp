@@ -13,7 +13,6 @@ public class MyDBHelper extends SQLiteOpenHelper {
     private static final String TABLE_CRED = "CredTable";
 
     // colmns
-    private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
@@ -27,7 +26,6 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
         // CREATE TABLE CredTable (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, password TEXT)
         sdb.execSQL( "CREATE TABLE " + TABLE_CRED +
-//                "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "(" + KEY_NAME + " TEXT PRIMARY KEY , " +
                         KEY_EMAIL + " TEXT , " +
                         KEY_PASSWORD + " TEXT" + ")"
@@ -94,5 +92,14 @@ public class MyDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 //        db.delete(TABLE_CRED, KEY_NAME + " = " + username,null); ==> doubt .. not working
         db.delete(TABLE_CRED, KEY_NAME + " = ? ", new String[]{username});
+    }
+
+    public String getUserName1(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + KEY_NAME + "FROM " + TABLE_CRED + " WHERE " + KEY_EMAIL + " = ?",new String[]{email});
+        String user = cursor.getString(0);
+        cursor.close();
+//        return cursor.toString();
+        return user;
     }
 }

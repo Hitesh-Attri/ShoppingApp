@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,login.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, NavActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -140,10 +142,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, EditUser.class);
                 startActivity(intent);
+                finish();
             }
         });
 
         myDBHelper.addCreds("Bunty0", "buntyy0@gmail.com","00000");
+        myDBHelper.addCreds("AAusername", "aa@gmail.com","aa");
     }
 
     private void clearAll(){

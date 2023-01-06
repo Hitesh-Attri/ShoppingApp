@@ -2,6 +2,7 @@ package com.example.shoppingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ButtonBarLayout;
+import androidx.core.view.GravityCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(login.this,MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -51,10 +53,19 @@ public class login extends AppCompatActivity {
                 else if(validateEmail(emailView)){
                     Boolean checkUser = myDBHelper.checkemailpassword(email,password);
                     if( checkUser == true){
+
                         Toast.makeText(login.this, "Success", Toast.LENGTH_SHORT).show();
                         clearFields();
+
                         Intent intent = new Intent(login.this, NavActivity.class);
+
+                        String user = myDBHelper.getUserName1(email);
+//                        intent.putExtra("Username",user);
+//                        intent.putExtra("Email",email);
+
+                        Toast.makeText(login.this, user, Toast.LENGTH_SHORT).show();
                         startActivity(intent);
+                        finish();
                     }
                     else{
                         Toast.makeText(login.this,"Invalid Credentials! ", Toast.LENGTH_SHORT).show();
@@ -84,4 +95,11 @@ public class login extends AppCompatActivity {
         emailView.getText().clear();
         passwordView.getText().clear();
     }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(login.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
