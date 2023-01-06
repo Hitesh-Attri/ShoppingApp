@@ -2,6 +2,7 @@ package com.example.shoppingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         emailView = findViewById(R.id.editTextTextEmailAddress);
         passwordView = findViewById(R.id.editTextTextPassword);
         passwordConfView = findViewById(R.id.editTextTextPassword2);
+
 
 
 //        regbtn.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Enter all fields!", Toast.LENGTH_SHORT).show();
                 }
 
-                if (validateEmail(emailView)) {
+               else if (validateEmail(emailView)) {
                     if (isSamePass(password, passwordConf) ) {
                         Boolean checkuser = myDBHelper.checkUsername(username);
                         if(checkuser == false){
@@ -113,6 +115,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,login.class);
+                startActivity(intent);
+            }
+        });
+
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+        Button btnTest = findViewById(R.id.buttonTesting);
+        btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AfterLogin.class);
                 startActivity(intent);
             }
         });
