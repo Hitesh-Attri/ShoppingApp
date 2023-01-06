@@ -19,9 +19,12 @@ public class MainActivity extends AppCompatActivity {
     private EditText passwordView;
     private EditText passwordConfView;
     private Button regbtn;
+    private Button gotoEdit;
+
 
     private String username, email, password, passwordConf;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         emailView = findViewById(R.id.editTextTextEmailAddress);
         passwordView = findViewById(R.id.editTextTextPassword);
         passwordConfView = findViewById(R.id.editTextTextPassword2);
-
+        gotoEdit = findViewById(R.id.gotoEditbtn);
 
 
 //        regbtn.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +87,9 @@ public class MainActivity extends AppCompatActivity {
                else if (validateEmail(emailView)) {
                     if (isSamePass(password, passwordConf) ) {
                         Boolean checkuser = myDBHelper.checkUsername(username);
-                        if(checkuser == false){
+                        Boolean checkemail = myDBHelper.checkEmail(email);
+
+                        if(checkuser == false && checkemail == false){
                             // inserting data
                             boolean insert = myDBHelper.addCreds(username, email, password);
                             if(insert == true) {
@@ -119,16 +124,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
         Button btnTest = findViewById(R.id.buttonTesting);
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AfterLogin.class);
+                Intent intent = new Intent(MainActivity.this, NavActivity.class);
                 startActivity(intent);
             }
         });
 
+        gotoEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, EditUser.class);
+                startActivity(intent);
+            }
+        });
 
         myDBHelper.addCreds("Bunty0", "buntyy0@gmail.com","00000");
     }

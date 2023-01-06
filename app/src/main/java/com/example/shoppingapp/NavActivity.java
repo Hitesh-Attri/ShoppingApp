@@ -1,29 +1,19 @@
 package com.example.shoppingapp;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Menu;
-import android.widget.Toast;
 
 import com.example.shoppingapp.ui.AccFragment.AccountFragment;
 import com.example.shoppingapp.ui.cartFragment.CartFragment;
-import com.example.shoppingapp.ui.home.homeFragment;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.shoppingapp.ui.HomeFrag.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.shoppingapp.databinding.ActivityNavBinding;
 /*
 public class NavActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -106,7 +96,7 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_nav,
-                    new homeFragment()).commit();
+                    new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
     }
@@ -116,7 +106,7 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
         switch (item.getItemId()) {
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_nav,
-                        new homeFragment()).commit();
+                        new HomeFragment()).commit();
                 break;
             case R.id.nav_AccInfo:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_nav,

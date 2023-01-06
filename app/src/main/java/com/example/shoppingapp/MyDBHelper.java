@@ -29,7 +29,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
         sdb.execSQL( "CREATE TABLE " + TABLE_CRED +
 //                "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "(" + KEY_NAME + " TEXT PRIMARY KEY , " +
-                        KEY_EMAIL + " TEXT, " +
+                        KEY_EMAIL + " TEXT , " +
                         KEY_PASSWORD + " TEXT" + ")"
         );
 
@@ -71,9 +71,19 @@ public class MyDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean checkusernamepassword(String username, String password){
+    public boolean checkEmail( String email){
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor =db.rawQuery("SELECT * FROM " + TABLE_CRED + " WHERE " + KEY_EMAIL + " = ?", new String[]{email});
+        if(cursor.getCount()>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Boolean checkemailpassword(String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("Select * from " + TABLE_CRED + " where " + KEY_NAME + " = ? and " + KEY_PASSWORD + " = ?", new String[] {username,password});
+        Cursor cursor = db.rawQuery("Select * from " + TABLE_CRED + " where " + KEY_EMAIL + " = ? and " + KEY_PASSWORD + " = ?", new String[] {email,password});
         if(cursor.getCount()>0)
             return true;
         else

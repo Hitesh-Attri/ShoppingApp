@@ -1,4 +1,4 @@
-package com.example.shoppingapp.ui.home;
+package com.example.shoppingapp.ui.HomeFrag;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment;
 import com.example.shoppingapp.R;
 
 
-public class homeFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
-    public homeFragment() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 

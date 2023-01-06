@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class login extends AppCompatActivity {
 
-    EditText usernameView, passwordView;
+    EditText emailView, passwordView;
     MyDBHelper myDBHelper;
 
     @Override
@@ -22,8 +22,10 @@ public class login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        usernameView = findViewById(R.id.editTextTextEmailAddress);
+        emailView = findViewById(R.id.editTextTextEmailAddress);
         passwordView = findViewById(R.id.editTextTextPassword);
+
+        myDBHelper = new MyDBHelper(this);
 
         TextView textView = findViewById(R.id.newuser);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -38,27 +40,46 @@ public class login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String user = usernameView.getText().toString();
+                String email = emailView.getText().toString();
                 String password = passwordView.getText().toString();
 
-                if(user.equals("") || password.equals("")){
+                if(email.equals("") || password.equals("")){
                     Toast.makeText(login.this, "Enter all fields!", Toast.LENGTH_SHORT).show();
                 }
-                else {
-                    boolean checkUser = myDBHelper.checkusernamepassword(user,password);
+                else if(validateEmail(emailView)){
+                    Boolean checkUser = myDBHelper.checkemailpassword(email,password);
                     if( checkUser == true){
                         Toast.makeText(login.this, "Success", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(login.this, AfterLogin.class);
+                        clearFields();
+                        Intent intent = new Intent(login.this, NavActivity.class);
                         startActivity(intent);
                     }
                     else{
                         Toast.makeText(login.this,"Invalid Credentials! ", Toast.LENGTH_SHORT).show();
-                        usernameView.getText().clear();
-                        passwordView.getText().clear();
+                        clearFields();
                     }
+                }
+                else{
+                    clearFields();
                 }
             }
         });
     }
 
+    private boolean validateEmail(EditText email){
+        String emailInput = email.getText().toString();
+        if(!emailInput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()){
+//            Toast.makeText(this, "Valid email", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else{
+            Toast.makeText(this, "Invalid email", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+    private void clearFields(){
+        emailView.getText().clear();
+        passwordView.getText().clear();
+    }
 }
