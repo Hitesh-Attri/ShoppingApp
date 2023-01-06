@@ -1,7 +1,9 @@
 package com.example.shoppingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.shoppingapp.ui.AccFragment.AccountFragment;
 import com.example.shoppingapp.ui.cartFragment.CartFragment;
@@ -116,6 +118,11 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_nav,
                         new CartFragment()).commit();
                 break;
+
+            case R.id.signOutText:
+                Toast.makeText(this, "logout_success", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(NavActivity.this, login.class));
+                finish();
         }
 
         drawer.closeDrawer(GravityCompat.START);

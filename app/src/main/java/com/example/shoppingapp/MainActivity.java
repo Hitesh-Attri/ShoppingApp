@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.shoppingapp.ui.HomeFrag.HomeFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText usernameView;
