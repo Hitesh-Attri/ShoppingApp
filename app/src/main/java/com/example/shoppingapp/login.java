@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ButtonBarLayout;
 import androidx.core.view.GravityCompat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +32,7 @@ public class login extends AppCompatActivity {
         passwordView = findViewById(R.id.editTextTextPassword);
 
         myDBHelper = new MyDBHelper(this);
+        MyDBHelper myDBHelper2 = new MyDBHelper(this);
 
         TextView textView = findViewById(R.id.newuser);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -59,11 +63,13 @@ public class login extends AppCompatActivity {
 
                         Intent intent = new Intent(login.this, NavActivity.class);
 
-                        String user = myDBHelper.getUserName1(email);
-//                        intent.putExtra("Username",user);
-//                        intent.putExtra("Email",email);
+//                        String user = myDBHelper2.getUserName1(email);
 
-                        Toast.makeText(login.this, user, Toast.LENGTH_SHORT).show();
+//                        intent.putExtra("Username",user);
+                        intent.putExtra("Email",email);
+
+//                        Toast.makeText(login.this, email, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(login.this, user, Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                         finish();
                     }
@@ -97,9 +103,16 @@ public class login extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        Intent intent = new Intent(login.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
-
 }

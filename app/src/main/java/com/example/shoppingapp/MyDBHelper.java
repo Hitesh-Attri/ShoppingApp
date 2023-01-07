@@ -96,9 +96,9 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     public String getUserName1(String email){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + KEY_NAME + "FROM " + TABLE_CRED + " WHERE " + KEY_EMAIL + " = ?",new String[]{email});
-        String user = cursor.getString(0);
-        cursor.close();
+        Cursor cursor = db.rawQuery("SELECT " + KEY_NAME + " FROM " + TABLE_CRED + " WHERE " + KEY_EMAIL + " = ?",new String[]{email});
+        String user = cursor.getString(1);
+//        cursor.close();
 //        return cursor.toString();
         return user;
     }

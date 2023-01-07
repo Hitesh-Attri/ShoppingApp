@@ -1,12 +1,13 @@
 package com.example.shoppingapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.shoppingapp.ui.AccFragment.AccountFragment;
 import com.example.shoppingapp.ui.cartFragment.CartFragment;
 import com.example.shoppingapp.ui.HomeFrag.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -21,16 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 public class NavActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private TextView emailView;
+    private TextView userView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav);
-
-        // setting email in nav header.
-//        emailView = findViewById(R.id.navHeaderEmail);
-//        String email = getIntent().getExtras().getString("Email");
-//        emailView.setText(email);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,14 +50,22 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+//         setting email in nav header.
+//        emailView = findViewById(R.id.navHeaderEmail);
+//        String email = getIntent().getExtras().getString("Email");
+//        emailView.setText(email);
+
         switch (item.getItemId()) {
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_nav,
                         new HomeFragment()).commit();
                 break;
             case R.id.nav_AccInfo:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_nav,
-                        new AccountFragment()).commit();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_nav,
+//                        new AccountFragment()).commit();
+                Intent intent = new Intent(NavActivity.this, AccInfoAct.class);
+                startActivity(intent);
                 break;
             case R.id.nav_cart:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_nav,
@@ -82,7 +87,22 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+//            super.onBackPressed();
+//            Intent intent = new Intent(NavActivity.this, login.class);
+//            startActivity(intent);
+//            finish();
+
+            new AlertDialog.Builder(this)
+                    .setMessage("Are you sure you want to exit?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         }
     }
 }
