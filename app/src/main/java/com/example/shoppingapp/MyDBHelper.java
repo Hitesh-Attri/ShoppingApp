@@ -1,15 +1,17 @@
 package com.example.shoppingapp;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class MyDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "DB1";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String TABLE_CRED = "CredTable";
 
     // colmns
@@ -31,8 +33,9 @@ public class MyDBHelper extends SQLiteOpenHelper {
                         KEY_PASSWORD + " TEXT" + ")"
         );
 
+        sdb.execSQL( "CREATE TABLE " + "CartTable " + "(" + "Outfit" + " TEXT PRIMARY KEY , " + " Value " + " TEXT" + ")" );
+
 //        SQLiteDatabase database = this.getWritableDatabase();
-//
 //        database.close();
 
     }
@@ -56,6 +59,31 @@ public class MyDBHelper extends SQLiteOpenHelper {
             return false;
         return true;
 
+
+    }
+
+    public boolean addIntoCart(String outfit, String value){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("Outfit", outfit);
+        values.put("Value", value);
+        long result = db.insert("CartTable", null, values);
+        if(result==-1)
+            return false;
+        return true;
+    }
+
+    public boolean ifExists(String outfit){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues values = new ContentValues();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM CartTable WHERE Outfit = ?", new String[]{outfit} );
+        if(cursor.getCount()>0){
+            return true;
+        }else{
+            return false;
+        }
 
     }
 
@@ -96,10 +124,11 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     public String getUserName1(String email){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + KEY_NAME + " FROM " + TABLE_CRED + " WHERE " + KEY_EMAIL + " = ?",new String[]{email});
-        String user = cursor.getString(1);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CRED + " WHERE " + KEY_EMAIL + " = ?",new String[]{email});
+        cursor.moveToFirst();
+
 //        cursor.close();
 //        return cursor.toString();
-        return user;
+        return cursor.getString(0);
     }
 }

@@ -3,7 +3,9 @@ package com.example.shoppingapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -30,12 +32,37 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav);
+        MyDBHelper myDBHelper = new MyDBHelper(this);
 
-        emailView = findViewById(R.id.navHeaderEmail);
+
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+//        TextView navUsername = (TextView) headerView.findViewById(R.id.navUsername);
+//        navUsername.setText("Your Text Here");
+
+        emailView = headerView. findViewById(R.id.navHeaderEmail);
+        emailView.setText(getIntent().getStringExtra("Email"));
+
+        userView =headerView. findViewById(R.id.navHeaderUserName);
+
+        userView.setText(myDBHelper.getUserName1(emailView.getText().toString()));/*
+        Cursor cursor =
+
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+                String path=cursor.getString(0);
+                userView.setText(path);
+            } while (cursor.moveToNext());
+        }*/
+
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,7 +72,6 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
         });
 
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,

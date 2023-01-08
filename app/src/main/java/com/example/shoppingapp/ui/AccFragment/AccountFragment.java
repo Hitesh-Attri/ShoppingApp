@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.example.shoppingapp.AccInfoAct;
 import com.example.shoppingapp.NavActivity;
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.ui.HomeFrag.HomeFragment;
 
 
 public class AccountFragment extends Fragment {
@@ -33,7 +34,6 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_accinfo, container,false);
 
 
-
         return view;
     }
 
@@ -44,8 +44,8 @@ public class AccountFragment extends Fragment {
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,NavActivity.class);
-                startActivity(intent);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_nav,
+                        new HomeFragment()).commit();
             }
         });
 

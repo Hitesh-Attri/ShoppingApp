@@ -63,9 +63,7 @@ public class login extends AppCompatActivity {
 
                         Intent intent = new Intent(login.this, NavActivity.class);
 
-//                        String user = myDBHelper2.getUserName1(email);
 
-//                        intent.putExtra("Username",user);
                         intent.putExtra("Email",email);
 
 //                        Toast.makeText(login.this, email, Toast.LENGTH_SHORT).show();
