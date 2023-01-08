@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private Button regbtn;
     private Button gotoEdit;
 
-
     private String username, email, password, passwordConf;
 
     @SuppressLint("MissingInflatedId")
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         passwordView = findViewById(R.id.editTextTextPassword);
         passwordConfView = findViewById(R.id.editTextTextPassword2);
         gotoEdit = findViewById(R.id.gotoEditbtn);
-
 
 //        regbtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -87,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 if(email.equals("") || username.equals("") || password.equals("") || passwordConf.equals("")){
                     Toast.makeText(MainActivity.this, "Enter all fields!", Toast.LENGTH_SHORT).show();
                 }
-
                else if (validateEmail(emailView)) {
                     if (isSamePass(password, passwordConf) ) {
                         Boolean checkuser = myDBHelper.checkUsername(username);
@@ -100,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                                 // text clear
                                 clearAll();
                                 Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_SHORT).show();
+
                                 Intent intent = new Intent(MainActivity.this, login.class);
                                 startActivity(intent);
                             }else{
@@ -134,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, NavActivity.class);
+                intent.putExtra("email","buntyy0@gmail.com");
                 startActivity(intent);
                 finish();
             }
@@ -188,20 +187,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Password does not match!", Toast.LENGTH_SHORT).show();
             return false;
         }
-    }
-
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage("Are you sure you want to exit?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
     }
 
 

@@ -102,17 +102,17 @@ public class login extends AppCompatActivity {
         passwordView.getText().clear();
     }
 
-    public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage("Are you sure you want to exit?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
-    }
+//    public void onBackPressed() {
+//        new AlertDialog.Builder(this)
+//                .setMessage("Are you sure you want to exit?")
+//                .setCancelable(false)
+//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        finish();
+//                    }
+//                })
+//                .setNegativeButton("No", null)
+//                .show();
+//    }
 }

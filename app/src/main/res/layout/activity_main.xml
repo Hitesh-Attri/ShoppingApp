@@ -50,14 +50,12 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
-
         <EditText
             android:id="@+id/editTextTextPersonName2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:drawableLeft="@drawable/ic_baseline_person_24"
-            android:ems="10"
             android:hint="Userame"
             android:inputType="textPersonName"
             android:textSize="24sp" />
@@ -68,7 +66,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:drawableLeft="@drawable/ic_baseline_email_24"
-            android:ems="10"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:textSize="24sp"
@@ -130,11 +127,11 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/custom_btn_ws"
         android:text="Button"
-        android:textColor="#fff"
         android:textAllCaps="false"
+        android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.219"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
