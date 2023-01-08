@@ -71,6 +71,8 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        // try cmntng below listener
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,6 +131,7 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
             case R.id.signOutText:
                 Toast.makeText(this, "logout_success", Toast.LENGTH_SHORT).show();
 
+                myDBHelper.deleteTableCart();
                 startActivity(new Intent(NavActivity.this, login.class));
                 finish();
         }
