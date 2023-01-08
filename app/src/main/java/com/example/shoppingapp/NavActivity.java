@@ -27,6 +27,7 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
     private DrawerLayout drawer;
     private TextView emailView;
     private TextView userView;
+    Bundle data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,17 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
         emailView.setText(getIntent().getStringExtra("Email"));
 
         userView = headerView.findViewById(R.id.navHeaderUserName);
+        userView.setText(myDBHelper.getUserName1(emailView.getText().toString()));
 
-        userView.setText(myDBHelper.getUserName1(emailView.getText().toString()));/*
+        String email = getIntent().getStringExtra("Email");
+        String user = myDBHelper.getUserName1(emailView.getText().toString());
+
+        data = new Bundle();
+        data.putString("Email",email);
+        data.putString("User",user);
+
+        /*
+        S
         Cursor cursor =
 
         if (cursor.moveToFirst())
@@ -56,8 +66,6 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
                 userView.setText(path);
             } while (cursor.moveToNext());
         }*/
-
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -96,13 +104,18 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
 
         switch (item.getItemId()) {
             case R.id.nav_home:
+                HomeFragment homeFragment = new HomeFragment();
+                homeFragment.setArguments(data);
+
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_nav,
-                        new HomeFragment()).commit();
+                        homeFragment).commit();
 //                startActivity(new Intent(NavActivity.this, HomeAct.class));
                 break;
             case R.id.nav_AccInfo:
+                AccountFragment accountFragment = new AccountFragment();
+                accountFragment.setArguments(data);
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_nav,
-                        new AccountFragment()).commit();
+                        accountFragment).commit();
 //                Intent intent = new Intent(NavActivity.this, AccInfoAct.class);
 //                intent.putExtra("email",email);
 //                startActivity(intent);

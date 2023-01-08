@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MyDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "DB1";
@@ -85,18 +87,33 @@ public class MyDBHelper extends SQLiteOpenHelper {
         }else{
             return false;
         }
-
     }
 
     public boolean isItemInCart(){
         SQLiteDatabase db = this.getReadableDatabase();
-
         Cursor cursor = db.rawQuery("SELECT * FROM CartTable", null );
         if(cursor.getCount()>0){
             return true;
         }else{
             return false;
         }
+    }
+
+    public ArrayList<TableModel> getAllOutfit(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM CartTable", null );
+
+        ArrayList<TableModel> arrayList= new ArrayList<>();
+
+        while(cursor.moveToNext()) {
+            TableModel model = new TableModel();
+            model.outfit = cursor.getString(0);
+            model.value = cursor.getString(1);
+
+            arrayList.add(model);
+        }
+
+        return arrayList;
     }
 
     public void deleteTableCart(){
