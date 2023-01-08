@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
 
                 if(!myDBHelper.ifExists("outfit1")) {
                     imgView1.setImageResource(R.drawable.ic_baseline_shopping_cart2_24);
-                    myDBHelper.addIntoCart("outfit1", "1");
+                    myDBHelper.addIntoCart("outfit1", "1" , "1600" , "Urbanic", "Pant + Sweatshirt + Boot");
                 }else{
                     Toast.makeText(getContext(), "Already Exists.", Toast.LENGTH_SHORT).show();
                 }
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 if(!myDBHelper.ifExists("outfit2")) {
                     imgView2.setImageResource(R.drawable.ic_baseline_shopping_cart2_24);
-                    myDBHelper.addIntoCart("outfit2", "2");
+                    myDBHelper.addIntoCart("outfit2", "2", "1675" , "FashionPH", "Denim + Maxi Dress + Footwear");
                 }else{
                     Toast.makeText(getContext(), "Already Exists.", Toast.LENGTH_SHORT).show();
                 }
@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 if(!myDBHelper.ifExists("outfit3")) {
                     imgView3.setImageResource(R.drawable.ic_baseline_shopping_cart2_24);
-                    myDBHelper.addIntoCart("outfit3", "3");
+                    myDBHelper.addIntoCart("outfit3", "3", "1775" , "Urbanic", "Dress + Leather Jacket");
                 }else{
                     Toast.makeText(getContext(), "Already Exists.", Toast.LENGTH_SHORT).show();
                 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class MyDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "DB1";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String TABLE_CRED = "CredTable";
 
     // colmns
@@ -36,7 +36,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
                         KEY_PASSWORD + " TEXT" + ")"
         );
 
-        sdb.execSQL( "CREATE TABLE " + "CartTable " + "(" + "Outfit" + " TEXT PRIMARY KEY , " + " Value " + " TEXT" + ")" );
+        sdb.execSQL( "CREATE TABLE " + "CartTable " + "(" + "Outfit TEXT PRIMARY KEY , Value TEXT, Price TEXT, Name TEXT, Name2 TEXT" + ")" );
 
 //        SQLiteDatabase database = this.getWritableDatabase();
 //        database.close();
@@ -62,15 +62,17 @@ public class MyDBHelper extends SQLiteOpenHelper {
             return false;
         return true;
 
-
     }
 
-    public boolean addIntoCart(String outfit, String value){
+    public boolean addIntoCart(String outfit, String value, String price, String name, String name2){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-
         values.put("Outfit", outfit);
         values.put("Value", value);
+        values.put("Price",price);
+        values.put("Name",name);
+        values.put("Name2",name2);
+
         long result = db.insert("CartTable", null, values);
         if(result==-1)
             return false;
@@ -109,6 +111,9 @@ public class MyDBHelper extends SQLiteOpenHelper {
             TableModel model = new TableModel();
             model.outfit = cursor.getString(0);
             model.value = cursor.getString(1);
+            model.price = cursor.getString(2);
+            model.name = cursor.getString(3);
+            model.name2 = cursor.getString(4);
 
             arrayList.add(model);
         }

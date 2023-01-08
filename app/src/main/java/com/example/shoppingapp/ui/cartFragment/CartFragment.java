@@ -24,6 +24,7 @@ public class CartFragment extends Fragment {
     Button btnPlaceOrder;
     MyDBHelper myDBHelper;
     TextView empty;
+    TextView txtView;
 
     public CartFragment() {
         // Required empty public constructor
@@ -41,10 +42,21 @@ public class CartFragment extends Fragment {
         // call function to print data on cart fragment screen
         if(myDBHelper.isItemInCart()) {
             ArrayList<TableModel> arrayList = myDBHelper.getAllOutfit();
-            for (int i = 0; i < arrayList.size() ; i++) {
-//                Log.d("")
+            for (int i = 0; i < arrayList.size(); i++) {
+                Log.d("OUTFIT",
+                        "outfit: " + arrayList.get(i).outfit +
+                        " Value " + arrayList.get(i).value +
+                        " Price " + arrayList.get(i).price +
+                        " Name " + arrayList.get(i).name+
+                        " Name2 " + arrayList.get(i).name2);
             }
-            empty.setText("hjhkjdhgakjghakjgh");
+            empty.setText("");
+            txtView = view.findViewById(R.id.textViewCart);
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < arrayList.size(); i++) {
+                stringBuilder.append("\n\n"+ arrayList.get(i).name + "\n"+ arrayList.get(i).name2 + "\nPrice: "+arrayList.get(i).price);
+            }
+            txtView.setText(stringBuilder);
         }
         else{
             empty.setText("No items in your cart");
@@ -57,6 +69,7 @@ public class CartFragment extends Fragment {
                 if(myDBHelper.isItemInCart()){
                     myDBHelper.deleteTableCart();
                     empty.setText("No items in your cart");
+                    txtView.setText("");
                     Toast.makeText(getContext(), "Your order has successfully placed", Toast.LENGTH_LONG).show();
                 }
                 else{
