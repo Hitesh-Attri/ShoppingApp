@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class EditUser extends AppCompatActivity {
 
-    private EditText usernameView;
+    private EditText usernameView,passwordView;
     private String username;
     private Button deletebtn;
     private Button gotoRegBtn;
@@ -22,23 +22,31 @@ public class EditUser extends AppCompatActivity {
         setContentView(R.layout.activity_edit_user);
 
         usernameView =findViewById(R.id.editusername);
+        passwordView = findViewById(R.id.editpassword);
         deletebtn = findViewById(R.id.removeUser);
         gotoRegBtn = findViewById(R.id.gotoReg);
 
         MyDBHelper myDBHelper = new MyDBHelper(this);
 
-
         deletebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                username = usernameView.getText().toString();
-                Boolean checkUser = myDBHelper.checkUsername(username);
-                if(checkUser == true){
-                    myDBHelper.deleteUser(username);
-                    usernameView.getText().clear();
-                    Toast.makeText(EditUser.this, "User Deleted Successfully", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(EditUser.this, "User Doesn't Exist!", Toast.LENGTH_SHORT).show();
+                String username = usernameView.getText().toString();
+                String password = passwordView.getText().toString();
+
+                if(username.equals("") || password.equals("")){
+                    Toast.makeText(EditUser.this, "Enter All Fields", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Boolean checkUser = myDBHelper.checkUsernamePassword(username, password);
+                    if (checkUser == true) {
+                        myDBHelper.deleteUser(username);
+                        clearFields();
+                        Toast.makeText(EditUser.this, "User Deleted Successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        clearFields();
+                        Toast.makeText(EditUser.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -52,5 +60,10 @@ public class EditUser extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void clearFields(){
+        usernameView.getText().clear();
+        passwordView.getText().clear();
     }
 }

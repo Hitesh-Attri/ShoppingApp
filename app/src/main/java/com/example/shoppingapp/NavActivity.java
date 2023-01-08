@@ -27,13 +27,14 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
     private DrawerLayout drawer;
     private TextView emailView;
     private TextView userView;
+    MyDBHelper myDBHelper;
     Bundle data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav);
-        MyDBHelper myDBHelper = new MyDBHelper(this);
+        myDBHelper = new MyDBHelper(this);
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -127,6 +128,7 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
 
             case R.id.signOutText:
                 Toast.makeText(this, "logout_success", Toast.LENGTH_SHORT).show();
+
                 startActivity(new Intent(NavActivity.this, login.class));
                 finish();
         }
