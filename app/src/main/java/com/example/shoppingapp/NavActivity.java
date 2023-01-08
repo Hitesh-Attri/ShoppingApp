@@ -35,16 +35,15 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
         MyDBHelper myDBHelper = new MyDBHelper(this);
 
 
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 //        TextView navUsername = (TextView) headerView.findViewById(R.id.navUsername);
 //        navUsername.setText("Your Text Here");
 
-        emailView = headerView. findViewById(R.id.navHeaderEmail);
+        emailView = headerView.findViewById(R.id.navHeaderEmail);
         emailView.setText(getIntent().getStringExtra("Email"));
 
-        userView =headerView. findViewById(R.id.navHeaderUserName);
+        userView = headerView.findViewById(R.id.navHeaderUserName);
 
         userView.setText(myDBHelper.getUserName1(emailView.getText().toString()));/*
         Cursor cursor =

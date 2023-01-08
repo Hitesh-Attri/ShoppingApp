@@ -132,7 +132,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, NavActivity.class);
-                intent.putExtra("email","buntyy0@gmail.com");
+                intent.putExtra("User","bunty");
+                intent.putExtra("Email","buntyy0@gmail.com");
                 startActivity(intent);
                 finish();
             }

@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 public class MyDBHelper extends SQLiteOpenHelper {
 
@@ -76,7 +77,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     public boolean ifExists(String outfit){
         SQLiteDatabase db = this.getReadableDatabase();
-        ContentValues values = new ContentValues();
+//        ContentValues values = new ContentValues();
 
         Cursor cursor = db.rawQuery("SELECT * FROM CartTable WHERE Outfit = ?", new String[]{outfit} );
         if(cursor.getCount()>0){
@@ -85,6 +86,22 @@ public class MyDBHelper extends SQLiteOpenHelper {
             return false;
         }
 
+    }
+
+    public boolean isItemInCart(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM CartTable", null );
+        if(cursor.getCount()>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void deleteTableCart(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("CartTable",null,null);
     }
 
     public boolean checkUsername( String username){
