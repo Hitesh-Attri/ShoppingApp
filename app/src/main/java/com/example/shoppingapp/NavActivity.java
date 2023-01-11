@@ -1,5 +1,7 @@
 package com.example.shoppingapp;
 
+import static android.app.PendingIntent.getActivity;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -70,6 +72,7 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
 
         // try cmntng below listener

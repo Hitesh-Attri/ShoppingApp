@@ -36,6 +36,8 @@ public class AccountFragment extends Fragment {
 
         context = (Activity) getContext();
 
+        getActivity().setTitle("Account Info");
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_accinfo, container,false);
 

@@ -127,17 +127,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnTest = findViewById(R.id.buttonTesting);
-        btnTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NavActivity.class);
-                intent.putExtra("User","bunty");
-                intent.putExtra("Email","buntyy0@gmail.com");
-                startActivity(intent);
-                finish();
-            }
-        });
+
+        // skip login btn
+//        Button btnTest = findViewById(R.id.buttonTesting);
+//        btnTest.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, NavActivity.class);
+//                intent.putExtra("User","bunty");
+//                intent.putExtra("Email","buntyy0@gmail.com");
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
 
         gotoEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        myDBHelper.addCreds("Bunty0", "buntyy0@gmail.com","00000");
-        myDBHelper.addCreds("AAusername", "aa@gmail.com","aa");
+//        myDBHelper.addCreds("Bunty0", "buntyy0@gmail.com","00000");
+//        myDBHelper.addCreds("AAusername", "aa@gmail.com","aa");
     }
 
     private void clearAll(){

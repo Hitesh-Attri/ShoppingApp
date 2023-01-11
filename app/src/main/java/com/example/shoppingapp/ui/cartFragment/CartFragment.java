@@ -36,6 +36,8 @@ public class CartFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart, container,false);
 
+        getActivity().setTitle("Cart");
+
         empty = view.findViewById(R.id.textViewCartEmpty);
         myDBHelper = new MyDBHelper(getContext());
 

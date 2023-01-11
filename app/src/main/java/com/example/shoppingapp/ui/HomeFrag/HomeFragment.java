@@ -34,6 +34,8 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container,false);
 
+        getActivity().setTitle("Home");
+
         imgView1 = view.findViewById(R.id.imageView91);
         imgView2 = view.findViewById(R.id.imageView111);
         imgView3 = view.findViewById(R.id.imageView141);
